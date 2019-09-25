@@ -23,6 +23,12 @@ very small code change that did this.
 
 # To Configure Github OAuth
 
+You first need to generate a Client ID and Client Secret.
+
+Note that the Client ID and Client Secret will need to be different for running on localhost, vs. running on, for example, Heroku.   If you want to run in both places, you'll need two sets of client-id/client-secret.
+
+Finally, the client secret SHOULD NEVER BE COMMITTED TO GITHUB.  If you accidentally do this, REVOKE IT IMMEDIATELY, and generate a new one.  It is not sufficient to just do a new commit that deletes it from the code, because its already there in the history.
+
 First, visit the Settings page of either your user account or an organization account,
 and click "Developer Settings", then "OAuth Apps", then "Create New OAuth App".
 
