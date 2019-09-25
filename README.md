@@ -25,9 +25,7 @@ very small code change that did this.
 
 You first need to generate a Client ID and Client Secret.
 
-Note that the Client ID and Client Secret will need to be different for running on localhost, vs. running on, for example, Heroku.   If you want to run in both places, you'll need two sets of client-id/client-secret.
 
-Finally, the client secret SHOULD NEVER BE COMMITTED TO GITHUB.  If you accidentally do this, REVOKE IT IMMEDIATELY, and generate a new one.  It is not sufficient to just do a new commit that deletes it from the code, because its already there in the history.
 
 First, visit the Settings page of either your user account or an organization account,
 and click "Developer Settings", then "OAuth Apps", then "Create New OAuth App".
@@ -40,3 +38,34 @@ Fill in:
 * Authorization Callback URL: Must be exactly: `http://locahost:8080/login/oauth2/code/github`
 
 Then click "Register Application"
+
+Note that the Client ID and Client Secret will need to be different for running on localhost, vs. running on, for example, Heroku.   If you want to run in both places, you'll need two sets of client-id/client-secret.
+
+Finally, the client secret SHOULD NEVER BE COMMITTED TO GITHUB.  That means, typically, that while it is ok to to put the client id in the `application.properties` file, the client secret should NOT be put there.  
+  * If you accidentally do this, REVOKE IT IMMEDIATELY, and generate a new one.  It is not sufficient to just do a new commit that deletes it from the code, because its already there in the history.  
+  
+Instead, we typically define the client secret via an Environment variable before we run the command to start up the Spring Boot application.
+
+# Maven Dependencies for Github OAuth
+
+You will need:
+* `org.springframework.boot:spring-boot-starter-security`
+   * You can get the latest XML for the dependency here: <https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security/>
+   
+Add that to your `pom.xml`
+
+# Defining the client id and client secret
+
+Define the client id like this in `application.properties`
+
+```
+spring.security.oauth2.client.registration.github.client-id=a1dd17b45beaa3104477
+```
+
+Then define the client secret via an environment variable like this:
+
+```
+export SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_SECRET="it-goes-here-in-the-quotes"
+```
+
+We typically put this in a file such as `env.sh` that is included in our `.gitignore` so that it doesn't end up in Github.
