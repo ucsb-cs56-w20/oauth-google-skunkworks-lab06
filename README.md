@@ -20,3 +20,17 @@ very small code change that did this.
 | `mvn spring-boot:run` | to run the web app|
 | in browser: `http://localhost:8080/greeting/` | to see "Hello, World!" |
 | in browser: `http://localhost:8080/greeting?name=Gauchos` | to see "Hello, Gauchos!"
+
+# To Configure Github OAuth
+
+First, visit the Settings page of either your user account or an organization account,
+and click "Developer Settings", then "OAuth Apps", then "Create New OAuth App".
+
+Fill in:
+* Application Name: Anything you want, but I suggest the name of the repo followed by "on localhost",<br>
+   e.g. "spring-boot-thymeleaf-bootstrap-oauth on localhost"
+* Homepage URL: Must be `http://localhost:8080`
+* Application Description is optional, but if entered will be shown to users the first time they authorize Github OAuth
+* Authorization Callback URL: Must be exactly: `http://locahost:8080/login/oauth2/code/github`
+
+Then click "Register Application"
