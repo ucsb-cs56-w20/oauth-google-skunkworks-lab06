@@ -54,6 +54,10 @@ You will need:
    
 Add that to your `pom.xml`
 
+For testing, you'll also need:
+
+* <https://mvnrepository.com/artifact/org.springframework.security/spring-security-test>
+
 # Defining the client id and client secret
 
 Define the client id like this in `application.properties`
