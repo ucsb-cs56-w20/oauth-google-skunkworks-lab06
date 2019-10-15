@@ -1,8 +1,19 @@
+# Application specific secrets files
+heroku.json
+localhost.json
+
+# For Java IDEs
 .classpath
 .project
 .settings
 
+# For Maven
 target
+
+# For emacs/vim
 *~
+*.swp
+
+# For Java
 *.class
 
