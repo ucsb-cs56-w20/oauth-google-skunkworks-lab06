@@ -1,5 +1,3 @@
-
-
 A simple Spring Boot webapp using:
 * Thymeleaf templating
 * Pulling in Bootstrap from CDN.
@@ -24,11 +22,12 @@ described here: <https://github.com/ucsb-cs56-pconrad/spring-boot-app-config>
 | `mvn spring-boot:run` | to run the web app|
 | in browser: `http://localhost:8080/greeting/` | to see "Hello, World!" |
 | in browser: `http://localhost:8080/greeting?name=Gauchos` | to see "Hello, Gauchos!"
+| `./checkLocalhost.py` | to check the syntax of your `localhost.json` file |
+| `./setHerokuEnv.py` --app APPNAME` | to check the syntax of your `heroku.json` file  and set the configuration variables for Heroku app `APPNAME` (requires logging in to Heroku CLI first)|
 
 # To Configure Github OAuth
 
 You first need to generate a Client ID and Client Secret.
-
 
 First, visit the Settings page of either your user account or an
 organization account, and click "Developer Settings", then "OAuth
@@ -39,7 +38,7 @@ Fill in:
    e.g. "spring-boot-thymeleaf-bootstrap-oauth on localhost"
 * Homepage URL: Must be `http://localhost:8080`
 * Application Description is optional, but if entered will be shown to users the first time they authorize Github OAuth
-* Authorization Callback URL: Must be exactly: `http://locahost:8080/login/oauth2/code/github`
+* Authorization Callback URL: Must be exactly: `http://localhost:8080/login/oauth2/code/github`
 
 Then click "Register Application"
 
@@ -67,6 +66,10 @@ For testing, the following may also be helpful:
 1. `cp localhost.json.SAMPLE localhost.json`
 
 2. Edit `localhost.json` with the values that you need.
+
+2. Run the Python script `checkLocalhost.py` to make sure your JSON syntax is correct. It's a lot
+   easy to check that with the script than to just get no results from your Spring Boot app because
+   the JSON is getting ignored.
 
 3. Execute `source env.sh` OR `. env.sh`
 
