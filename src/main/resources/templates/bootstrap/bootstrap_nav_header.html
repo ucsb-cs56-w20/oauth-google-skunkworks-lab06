@@ -2,6 +2,11 @@
 <!-- See https://getbootstrap.com/docs/4.0/components/navbar/ for documentation on how to adjust HTML below -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Sample-Website</a>
+    <form method="POST" action="/logout" class="form-inline">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+
     <!-- Button to collapse/expand navbar when it doesn't fit on the screen-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

@@ -17,8 +17,14 @@ public class Application extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/oauth_login").permitAll()
         .anyRequest().authenticated()
         .and()
-        .oauth2Login()
-        .loginPage("/oauth_login");
+        .oauth2Login().loginPage("/oauth_login")
+        .and()
+        .logout()
+          .deleteCookies("remove")
+          .invalidateHttpSession(true)
+          .logoutUrl("/logout")
+          .logoutSuccessUrl("/")
+          .permitAll();
     }
 
 }
