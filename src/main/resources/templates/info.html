@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Github Info</title>
+    <div th:replace="bootstrap/bootstrap_head.html"></div>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="bootstrap/bootstrap_nav_header.html"></div>
+
+        <h1>Github Info</h1>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <td th:text="${name}"></td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td th:text="${login}"></td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td th:text="${id}"></td>
+            </tr>
+            <tr>
+                    <th>Avatar</th>
+                    <td><img th:src="${avatar_url}" /></td>
+            </tr>
+        </table>
+
+        <div th:replace="bootstrap/bootstrap_footer.html"></div>
+    </div>
+    <div th:replace="bootstrap/bootstrap_scripts.html"></div>
+</body>
+
+</html>
