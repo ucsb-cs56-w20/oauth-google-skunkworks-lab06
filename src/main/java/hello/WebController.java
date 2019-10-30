@@ -19,7 +19,7 @@ public class WebController {
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
-    @GetMapping("/oauth_login")
+    @GetMapping("/login")
     public String getLoginPage(Model model) {
         Map<String, String> urls = new HashMap<>();
 
@@ -29,7 +29,7 @@ public class WebController {
                 "/oauth2/authorization/" + clientRegistration.getRegistrationId()));
 
         model.addAttribute("urls", urls);
-        return "oauth_login";
+        return "login";
     }
 
     @GetMapping("/info")

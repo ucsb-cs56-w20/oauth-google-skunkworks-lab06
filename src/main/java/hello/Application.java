@@ -14,17 +14,21 @@ public class Application extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/oauth_login").permitAll()
-        .anyRequest().authenticated()
+        http
+        .authorizeRequests()
+            .antMatchers("/","/login**","/webjars/**","/error**")
+            .permitAll()
+        .anyRequest()
+            .authenticated()
         .and()
-        .oauth2Login().loginPage("/oauth_login")
+            .oauth2Login().loginPage("/login")
         .and()
-        .logout()
-          .deleteCookies("remove")
-          .invalidateHttpSession(true)
-          .logoutUrl("/logout")
-          .logoutSuccessUrl("/")
-          .permitAll();
+            .logout()
+            .deleteCookies("remove")
+            .invalidateHttpSession(true)
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/")
+            .permitAll();
     }
 
 }
