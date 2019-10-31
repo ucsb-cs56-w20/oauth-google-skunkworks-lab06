@@ -29,8 +29,8 @@ public class WebController {
 
         Map<String, String> urls = new HashMap<>();
 
-        Iterable<ClientRegistration> iterable;
-        iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
+        // get around an unfortunate limitation of the API
+        @SuppressWarnings("unchecked") Iterable<ClientRegistration> iterable = ((Iterable<ClientRegistration>) clientRegistrationRepository);
         iterable.forEach(clientRegistration -> urls.put(clientRegistration.getClientName(),
                 "/oauth2/authorization/" + clientRegistration.getRegistrationId()));
 
@@ -38,18 +38,15 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping("/info")
-    public String getInfo(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        OAuth2User oAuth2User = oAuth2AuthenticationToken.getPrincipal();
+    @GetMapping("/page1")
+    public String getPage1(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
 
-        // https://developer.github.com/v3/users/#get-the-authenticated-user
-
-        model.addAttribute("name", oAuth2User.getAttributes().get("name"));
-        model.addAttribute("login", oAuth2User.getAttributes().get("login"));
-        model.addAttribute("id", oAuth2User.getAttributes().get("id"));
-        model.addAttribute("avatar_url", oAuth2User.getAttributes().get("avatar_url"));
-
-        return "info";
+        return "page1";
     }
 
+    @GetMapping("/page2")
+    public String getPage2(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+
+        return "page2";
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -64,10 +65,29 @@ public class GithubOrgMembershipService implements MembershipService {
 
         Github github = null;
 
+        if (clientService==null) {
+            logger.error(String.format("unable to obtain autowired clientService"));
+            return false;
+        }
         OAuth2AuthorizedClient client = clientService
                 .loadAuthorizedClient(oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
 
-        String accessToken = client.getAccessToken().getTokenValue();
+        if (client==null) {
+            logger.info(String.format("clientService was not null but client returned was null for user %s",user));
+            return false;
+        }
+
+        OAuth2AccessToken token = client.getAccessToken();
+
+        if (token==null) {
+            logger.info(String.format("client for %s was not null but getAccessToken returned null",user));
+            return false;
+        }
+        String accessToken = token.getTokenValue();
+        if (accessToken==null) {
+            logger.info(String.format("token was not null but getTokenValue returned null for user %s",user));
+            return false;
+        }
 
         try {
 
@@ -77,32 +97,33 @@ public class GithubOrgMembershipService implements MembershipService {
             github = new RtGithub(new RtGithub(accessToken).entry()
                     .through(RetryCarefulWire.class, 50));
 
-            logger.info("github=" + github);
-            User ghuser = github.users().get(user);
-            logger.info("ghuser=" + ghuser);
+            // logger.info("github=" + github);
+            // User ghuser = github.users().get(user);
+            // logger.info("ghuser=" + ghuser);
+            // JsonResponse jruser = github.entry().uri().path("/user").back().method(Request.GET).fetch()
+            //         .as(JsonResponse.class);
+            // logger.info("jruser =" + jruser);
+            // Organization org = github.organizations().get(githubOrg);
+            // logger.info("org =" + org);
 
-            JsonResponse jruser = github.entry().uri().path("/user").back().method(Request.GET).fetch()
-                    .as(JsonResponse.class);
+            String path = String.format("/user/memberships/orgs/%s",githubOrg);
 
-            logger.info("jruser =" + jruser);
-
-            Organization org = github.organizations().get(githubOrg);
-
-            logger.info("org =" + org);
-
-            JsonResponse jr = github.entry().uri().path("/user/memberships/orgs/" + githubOrg).back()
+            JsonResponse jr = github.entry().uri().path(path).back()
                     .method(Request.GET).fetch().as(JsonResponse.class);
 
-            String actualRole = jr.json().readObject().getString("role");
-
             logger.info("jr =" + jr);
+
+            String actualRole = jr.json().readObject().getString("role");
+            String state = jr.json().readObject().getString("state");
+
             logger.info("actualRole =" + actualRole);
             logger.info("roleToTest =" + roleToTest);
+            logger.info("state =" + state);
 
             return actualRole.equals(roleToTest);
         } catch (Exception e) {
-            logger.warn("Exception happened while trying to determine membership in github org");
-            logger.warn(e.toString());
+            logger.error("Exception happened while trying to determine membership in github org");
+            logger.error("Exception",e);
         }
         return false;
     }
