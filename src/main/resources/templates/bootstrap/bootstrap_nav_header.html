@@ -18,6 +18,12 @@
             </li>
         </ul>
 
+        <span class="navbar-text" th:if="${isMember}">
+            Member
+        </span>
+        <span class="navbar-text" th:if="${isAdmin}">
+            Admin
+        </span>
         <form method="GET" action="/oauth2/authorization/github" class="form-inline my-2 my-lg-0" th:unless="${isLoggedIn}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">GitHub Login</button>
         </form>

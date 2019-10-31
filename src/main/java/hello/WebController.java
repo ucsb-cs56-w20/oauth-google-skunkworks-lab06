@@ -21,13 +21,11 @@ public class WebController {
 
     @GetMapping("/")
     public String getHomepage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        model.addAttribute("isLoggedIn", oAuth2AuthenticationToken != null);
         return "index";
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        model.addAttribute("isLoggedIn", oAuth2AuthenticationToken != null);
 
         Map<String, String> urls = new HashMap<>();
 
@@ -42,7 +40,6 @@ public class WebController {
 
     @GetMapping("/info")
     public String getInfo(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
-        model.addAttribute("isLoggedIn", oAuth2AuthenticationToken != null);
         OAuth2User oAuth2User = oAuth2AuthenticationToken.getPrincipal();
 
         // https://developer.github.com/v3/users/#get-the-authenticated-user
