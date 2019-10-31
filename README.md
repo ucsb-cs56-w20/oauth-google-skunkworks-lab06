@@ -107,26 +107,3 @@ with lab06, look online and see if the lab07 instructions are ready.
 | `./checkLocalhost.py` | to check the syntax of your `localhost.json` file |
 | `./setHerokuEnv.py` --app APPNAME` | to check the syntax of your `heroku.json` file  and set the configuration variables for Heroku app `APPNAME` (requires logging in to Heroku CLI first)|
 
-# To Configure Github OAuth
-
-You first need to generate a Client ID and Client Secret.
-
-First, visit the Settings page of either your user account or an
-organization account, and click "Developer Settings", then "OAuth
-Apps", then "Create New OAuth App".
-
-Fill in:
-* Application Name: Anything you want, but I suggest the name of the repo followed by "on localhost",<br>
-   e.g. "spring-boot-thymeleaf-bootstrap-oauth on localhost"
-* Homepage URL: Must be `http://localhost:8080`
-* Application Description is optional, but if entered will be shown to users the first time they authorize Github OAuth
-* Authorization Callback URL: Must be exactly: `http://localhost:8080/login/oauth2/code/github`
-
-Then click "Register Application"
-
-Note that the Client ID and Client Secret will need to be different for running on localhost, vs. running on, for example, Heroku.   If you want to run in both places, you'll need two sets of client-id/client-secret.
-
-Finally, the client secret SHOULD NEVER BE COMMITTED TO GITHUB.  That means, typically, that while it is ok to to put the client id in the `application.properties` file, the client secret should NOT be put there.  
-  * If you accidentally do this, REVOKE IT IMMEDIATELY, and generate a new one.  It is not sufficient to just do a new commit that deletes it from the code, because its already there in the history.  
-  
-Instead, we typically define the client secret via an Environment variable before we run the command to start up the Spring Boot application.
