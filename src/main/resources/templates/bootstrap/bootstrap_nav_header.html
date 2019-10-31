@@ -18,10 +18,10 @@
             </li>
         </ul>
 
-        <form method="GET" action="/oauth2/authorization/github" class="form-inline my-2 my-lg-0">
+        <form method="GET" action="/oauth2/authorization/github" class="form-inline my-2 my-lg-0" th:unless="${isLoggedIn}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">GitHub Login</button>
         </form>
-        <form method="POST" action="/logout" class="form-inline my-2 my-lg-0">
+        <form method="POST" action="/logout" class="form-inline my-2 my-lg-0" th:if="${isLoggedIn}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         </form>

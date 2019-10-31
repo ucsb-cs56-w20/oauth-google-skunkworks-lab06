@@ -19,6 +19,12 @@ public class WebController {
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
+    @GetMapping("/")
+    public String getHomepage(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        model.addAttribute("isLoggedIn", oAuth2AuthenticationToken != null);
+        return "index";
+    }
+
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         Map<String, String> urls = new HashMap<>();
