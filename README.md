@@ -102,8 +102,6 @@ with lab06, look online and see if the lab07 instructions are ready.
 |-----------|------------|
 | `mvn package` | to make a jar file|
 | `mvn spring-boot:run` | to run the web app|
-| in browser: `http://localhost:8080/greeting/` | to see "Hello, World!" |
-| in browser: `http://localhost:8080/greeting?name=Gauchos` | to see "Hello, Gauchos!"
 | `./checkLocalhost.py` | to check the syntax of your `localhost.json` file |
 | `./setHerokuEnv.py` --app APPNAME` | to check the syntax of your `heroku.json` file  and set the configuration variables for Heroku app `APPNAME` (requires logging in to Heroku CLI first)|
 
