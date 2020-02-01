@@ -19,16 +19,23 @@ public class AuthControllerAdvice {
 
     @ModelAttribute("id")
     public String getUid(OAuth2AuthenticationToken token){
-        if (token == null) return "";
-        return token.getPrincipal().getAttributes().get("id").toString();
+        return "stub";
+        // if (token == null) return "";
+        // return token.getPrincipal().getAttributes().get("id").toString();
     }
 
     @ModelAttribute("login")
     public String getLogin(OAuth2AuthenticationToken token){
-        if (token == null) return "";
-        return token.getPrincipal().getAttributes().get("login").toString();
+        return "stub";
+        // if (token == null) return "";
+        // return token.getPrincipal().getAttributes().get("login").toString();
     }
 
+    @ModelAttribute("oauth")
+    public Object getOauth(OAuth2AuthenticationToken token){
+        return token;
+    }
+    
     @ModelAttribute("isMember")
     public boolean getIsMember(OAuth2AuthenticationToken token){
         return membershipService.isMember(token);
