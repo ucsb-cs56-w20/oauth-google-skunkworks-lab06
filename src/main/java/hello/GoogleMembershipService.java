@@ -27,6 +27,12 @@ public class GoogleMembershipService implements MembershipService {
 
     private Logger logger = LoggerFactory.getLogger(GoogleMembershipService.class);
 
+    @Value("${app.admin.email}")
+    private String adminEmail;
+
+    @Value("${app.member.hosted-domain}")
+    private String memberHostedDomain;
+
     @Autowired
     private OAuth2AuthorizedClientService clientService;
 
@@ -64,32 +70,35 @@ public class GoogleMembershipService implements MembershipService {
         String email = (String) oAuth2User.getAttributes().get("email");
         String hd = (String) oAuth2User.getAttributes().get("hd");
 
-        if (client == null) {
-            logger.info(String.format("clientService was not null but client returned was null for user %s", email));
-            return false;
-        }
+        // if (client == null) {
+        // logger.info(String.format("clientService was not null but client returned was
+        // null for user %s", email));
+        // return false;
+        // }
 
-        OAuth2AccessToken token = client.getAccessToken();
+        // OAuth2AccessToken token = client.getAccessToken();
 
-        if (token == null) {
-            logger.info(String.format("client for %s was not null but getAccessToken returned null", email));
-            return false;
-        }
-        String accessToken = token.getTokenValue();
-        if (accessToken == null) {
-            logger.info(String.format("token was not null but getTokenValue returned null for user %s", email));
-            return false;
-        }
+        // if (token == null) {
+        // logger.info(String.format("client for %s was not null but getAccessToken
+        // returned null", email));
+        // return false;
+        // }
+        // String accessToken = token.getTokenValue();
+        // if (accessToken == null) {
+        // logger.info(String.format("token was not null but getTokenValue returned null
+        // for user %s", email));
+        // return false;
+        // }
 
         if (hd == null) {
             return false;
         }
 
-        if (roleToTest.equals("member") && hd.equals("ucsb.edu")) {
+        if (roleToTest.equals("member") && hd.equals(memberHostedDomain)) {
             return true;
         }
 
-        if (roleToTest.equals("admin") && email.equals("pconrad@ucsb.edu")) {
+        if (roleToTest.equals("admin") && email.equals(adminEmail)) {
             return true;
         }
 
