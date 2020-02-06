@@ -21,14 +21,27 @@ public class AuthControllerAdvice {
     public String getUid(OAuth2AuthenticationToken token){
         return "stub";
         // if (token == null) return "";
-        // return token.getPrincipal().getAttributes().get("id").toString();
+        // return token.getPrincipal().getAttributes().get("given_name").toString();
+    }
+
+    @ModelAttribute("fname")
+    public String getFirstName(OAuth2AuthenticationToken token){
+        if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("given_name").toString();
+    }
+
+    @ModelAttribute("picture")
+    public String getPicture(OAuth2AuthenticationToken token){
+        // return "stub";
+        if (token == null) return "";
+        return token.getPrincipal().getAttributes().get("picture").toString();
     }
 
     @ModelAttribute("login")
     public String getLogin(OAuth2AuthenticationToken token){
-        return "stub";
-        // if (token == null) return "";
-        // return token.getPrincipal().getAttributes().get("login").toString();
+        // return "stub";
+        if (token == null) return "";
+        return token.getName();
     }
 
     @ModelAttribute("oauth")
