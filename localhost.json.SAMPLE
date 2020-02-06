@@ -1,4 +1,4 @@
 {
-    "spring.security.oauth2.client.registration.google.client-id":"ENTER-GOOGLE-ID",
-    "spring.security.oauth2.client.registration.google.client-secret":"ENTER-GOOGLE-SECRET"
+    "spring.security.oauth2.client.registration.google.client-id":"ReplaceWithGoogleClientID",
+    "spring.security.oauth2.client.registration.google.client-secret":"ReplaceWithGoogleClientSECRET"
 }
